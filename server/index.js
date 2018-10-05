@@ -2,6 +2,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require('cors');
+const massive = require('massive');
+require('dotenv').config();
 
 // Require controller
 const controller = require("./controller.js");
@@ -20,6 +22,5 @@ app.use(cors())
 // app.post("/api/patterns", controller.add)
 
 // Tell the app to start listening on port 3005
-app.listen(3005, () => {
-    console.log("app running on port 3005")
-})
+const port = process.env.PORT || 3005
+app.listen(port, () => { console.log(`Server listening on port ${port}`) });
