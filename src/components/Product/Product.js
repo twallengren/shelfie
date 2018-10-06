@@ -26,7 +26,7 @@ var Product = (props) => {
             <div className="productButtons">
 
                 <button onClick={() => { deleteProduct(props.details.product_id, props.getData) }}>DELETE</button>
-                <button>EDIT</button>
+                <button onClick={() => { props.setSelected(props.details) }}>EDIT</button>
 
             </div>
 

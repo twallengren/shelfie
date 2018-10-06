@@ -16,7 +16,9 @@ class App extends Component {
 
     this.state = {
       inventory: [],
-      selected: {}
+      selected: {
+        product_id: -1
+      }
     }
 
   }
@@ -36,13 +38,21 @@ class App extends Component {
     })
   }
 
+  unselect = () => {
+    this.setState({ selected: { product_id: -1 } })
+  }
+
+  setSelected = (product) => {
+    this.setState({ selected: product })
+  }
+
   render() {
     return (
       <div>
 
         <Header />
-        <Dashboard inventory_list={this.state.inventory} getData={this.getData} />
-        <Form getData={this.getData} />
+        <Dashboard inventory_list={this.state.inventory} getData={this.getData} setSelected={this.setSelected} />
+        <Form getData={this.getData} selected={this.state.selected} unselect={this.unselect} />
 
       </div>
     );

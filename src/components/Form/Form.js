@@ -14,7 +14,34 @@ class Form extends Component {
             image_url: "",
             product_name: "",
             price: "",
-            descript: "N/A"
+            descript: "N/A",
+            selectedID: -1,
+            addOrEdit: () => { return (<button onClick={this.addToInventory} >Add to Inventory</button>) }
+        }
+
+    }
+
+    componentDidUpdate(prevProps) {
+
+        if (this.props.selected !== prevProps.selected) {
+
+            let prodID = this.props.selected.product_id;
+
+            this.setState({ selectedID: prodID })
+
+            if (prodID === -1) {
+
+                console.log('prodID is -1')
+
+                this.setState({ addOrEdit: () => { return (<button onClick={this.addToInventory} >Add to Inventory</button>) } })
+
+
+            } else {
+
+                this.setState({ addOrEdit: () => { return (<button onClick={this.editItem} >Save Changes</button>) } })
+
+            }
+
         }
 
     }
@@ -56,13 +83,17 @@ class Form extends Component {
         this.setState({
             image_url: "",
             product_name: "",
-            price: ""
+            price: "",
+            selectedID: -1
         });
 
         // Clear input boxes
         this.refs.image_url.value = "";
         this.refs.product_name.value = "";
         this.refs.price.value = "";
+
+        // Unselect on App state
+        this.props.unselect();
 
     }
 
@@ -78,6 +109,7 @@ class Form extends Component {
     }
 
     render() {
+
         return (
 
             <div className="Form">
@@ -90,7 +122,7 @@ class Form extends Component {
 
                 <div className="FormButtons">
                     <button onClick={this.clearInput} >Cancel</button>
-                    <button onClick={this.addToInventory} >Add to Inventory</button>
+                    {this.state.addOrEdit()}
                 </div>
 
             </div>
