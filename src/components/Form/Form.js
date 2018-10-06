@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+const BASE_URL = "http://localhost:3005";
+
+
 class Form extends Component {
 
     constructor(props) {
@@ -10,7 +13,8 @@ class Form extends Component {
         this.state = {
             image_url: "",
             product_name: "",
-            price: ""
+            price: "",
+            descript: "N/A"
         }
 
     }
@@ -62,6 +66,17 @@ class Form extends Component {
 
     }
 
+    addToInventory = () => {
+
+        axios.post(`${BASE_URL}/api/product`, this.state).then(() => {
+
+            this.clearInput();
+            this.props.getData();
+
+        })
+
+    }
+
     render() {
         return (
 
@@ -75,7 +90,7 @@ class Form extends Component {
 
                 <div className="FormButtons">
                     <button onClick={this.clearInput} >Cancel</button>
-                    <button>Add to Inventory</button>
+                    <button onClick={this.addToInventory} >Add to Inventory</button>
                 </div>
 
             </div>
