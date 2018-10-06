@@ -5,8 +5,9 @@ const BASE_URL = "http://localhost:3005";
 
 var deleteProduct = (id, getCallback) => {
 
-    axios.delete(`${BASE_URL}/api/inventory/${id}`).then(response => {
+    axios.delete(`${BASE_URL}/api/inventory/${id}`).then(() => {
 
+        // Callback function to update product list
         getCallback();
 
     })
