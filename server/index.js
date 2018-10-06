@@ -22,7 +22,7 @@ massive(process.env.CONNECTION_STRING).then(dbInstance => {
 
 // Create endpoints
 app.get("/api/inventory", controller.getAll)
-// app.delete("/api/patterns/:patternID", controller.delete)
+app.delete("/api/inventory/:productID", controller.deleteProduct)
 // app.put("/api/patterns/:patternID", controller.update)
 app.post("/api/product", controller.addProduct)
 

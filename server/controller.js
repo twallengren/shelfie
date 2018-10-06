@@ -24,6 +24,19 @@ module.exports = {
             console.log(err)
         });
 
+    },
+
+    deleteProduct: (req, res, next) => {
+
+        const dbInstance = req.app.get('db');
+
+        const { productID } = req.params;
+
+        dbInstance.delete_product(productID).then(() => res.sendStatus(200)).catch(err => {
+            res.status(500).send({ errorMessage: "Oops! Something went wrong. Our engineers have been informed!" });
+            console.log(err)
+        });
+
     }
 
 }

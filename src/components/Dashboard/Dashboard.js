@@ -9,7 +9,7 @@ class Dashboard extends Component {
 
             return (
                 <div key={product.product_id} >
-                    <Product details={product} />
+                    <Product details={product} getData={this.props.getData} />
                 </div>
             )
 
