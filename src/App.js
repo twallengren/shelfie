@@ -1,19 +1,47 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
 
 import Dashboard from './components/Dashboard/Dashboard'
 import Form from './components/Form/Form'
 import Header from './components/Header/Header'
 
+const BASE_URL = "http://localhost:3005";
+
 class App extends Component {
+
+  constructor() {
+
+    super();
+
+    this.state = {
+      inventory: []
+    }
+
+  }
+
+  componentDidMount() {
+
+    this.getData();
+
+  }
+
+  getData = () => {
+    // Get inventory list
+    axios.get(`${BASE_URL}/api/inventory`).then(response => {
+
+      this.setState({ inventory: response.data })
+
+    })
+  }
+
   render() {
     return (
       <div>
 
         <Header />
-        <Dashboard />
-        <Form />
+        <Dashboard inventory_list={this.state.inventory} />
+        <Form getData={this.getData} />
 
       </div>
     );
