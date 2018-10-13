@@ -22,9 +22,11 @@ massive(process.env.CONNECTION_STRING).then(dbInstance => {
 
 // Create endpoints
 app.get("/api/inventory", controller.getAll)
+app.get("/api/inventory/:productID", controller.getOne)
 app.delete("/api/inventory/:productID", controller.deleteProduct)
-// app.put("/api/patterns/:patternID", controller.update)
+app.put("/api/inventory/:productID", controller.editProduct)
 app.post("/api/product", controller.addProduct)
+
 
 // Tell the app to start listening on port 3005
 const port = process.env.PORT || 3005

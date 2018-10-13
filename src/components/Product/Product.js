@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const BASE_URL = "http://localhost:3005";
 
@@ -26,7 +27,7 @@ var Product = (props) => {
             <div className="productButtons">
 
                 <button onClick={() => { deleteProduct(props.details.product_id, props.getData) }}>DELETE</button>
-                <button onClick={() => { props.setSelected(props.details) }}>EDIT</button>
+                <Link to={`/edit/${props.details.product_id}`}>EDIT</Link>
 
             </div>
 

@@ -15,23 +15,33 @@ class Form extends Component {
             product_name: "",
             price: "",
             descript: "N/A",
-            selectedID: -1,
-            addOrEdit: () => { return (<button onClick={this.addToInventory} >Add to Inventory</button>) }
+            selectedID: props.match.params.id,
+            edit_image: null,
+            addOrEdit: () => { return (<button onClick={this.addToInventory} >Add to Inventory</button>) },
         }
 
     }
 
+    componentDidMount() {
+        if (this.props.match.params.id) {
+            this.setState({ selectedID: this.props.match.params.id })
+            this.setState({ addOrEdit: () => { return (<button onClick={this.editItem} >Save Changes</button>) } })
+            this.getItem()
+        } else {
+            this.setState({ selectedID: null })
+            this.setState({ addOrEdit: () => { return (<button onClick={this.addToInventory} >Add to Inventory</button>) } })
+        }
+    }
+
     componentDidUpdate(prevProps) {
 
-        if (this.props.selected !== prevProps.selected) {
+        if (this.props.match.params.id !== prevProps.match.params.id) {
 
-            let prodID = this.props.selected.product_id;
+            let prodID = this.props.match.params.id;
 
             this.setState({ selectedID: prodID })
 
-            if (prodID === -1) {
-
-                console.log('prodID is -1')
+            if (!prodID) {
 
                 this.setState({ addOrEdit: () => { return (<button onClick={this.addToInventory} >Add to Inventory</button>) } })
 
@@ -83,17 +93,13 @@ class Form extends Component {
         this.setState({
             image_url: "",
             product_name: "",
-            price: "",
-            selectedID: -1
+            price: ""
         });
 
         // Clear input boxes
         this.refs.image_url.value = "";
         this.refs.product_name.value = "";
         this.refs.price.value = "";
-
-        // Unselect on App state
-        this.props.unselect();
 
     }
 
@@ -108,11 +114,45 @@ class Form extends Component {
 
     }
 
+    editItem = () => {
+
+        const selected = this.state.selectedID;
+
+        axios.put(`${BASE_URL}/api/inventory/${selected}`, this.state).then(() => {
+
+            this.clearInput();
+
+        })
+
+    }
+
+    getItem = () => {
+
+        const selected = this.state.selectedID;
+
+        axios.get(`${BASE_URL}/api/inventory/${selected}`, this.state).then((response) => {
+
+            this.setState({ edit_image: response.data[0].image_url })
+
+        })
+
+    }
+
     render() {
+
+        if (this.state.selectedID) {
+
+            var img = <img src={`${this.state.edit_image}`} alt={`${this.state.selectedID}`} />;
+
+        } else {
+            var img = <div></div>;
+        }
 
         return (
 
             <div className="Form">
+
+                {img}
 
                 <div className="InputBoxes">
                     <input ref="image_url" placeholder="Image URL" onChange={(event) => { this.updateInputState(event, "Image URL") }} />
