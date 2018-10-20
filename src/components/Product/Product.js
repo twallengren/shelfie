@@ -27,7 +27,7 @@ var Product = (props) => {
             <div className="productButtons">
 
                 <button onClick={() => { deleteProduct(props.details.product_id, props.getData) }}>DELETE</button>
-                <Link to={`/edit/${props.details.product_id}`}>EDIT</Link>
+                <Link to={`/edit/${props.details.product_id}`}><button>EDIT</button></Link>
 
             </div>
 

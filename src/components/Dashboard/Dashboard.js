@@ -36,7 +36,7 @@ class Dashboard extends Component {
         let product_dash = this.state.inventory.map(product => {
 
             return (
-                <div key={product.product_id} >
+                <div key={product.product_id} style={{ "padding-top": "10px" }}>
                     <Product details={product} getData={this.getData} />
                 </div>
             )

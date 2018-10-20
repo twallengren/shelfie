@@ -151,7 +151,7 @@ class Form extends Component {
         return (
 
             <div className="flex-container form">
-                <div>
+                <div className="product">
                     {img}
                 </div>
 
