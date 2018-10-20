@@ -93,7 +93,8 @@ class Form extends Component {
         this.setState({
             image_url: "",
             product_name: "",
-            price: ""
+            price: "",
+            selectedID: null
         });
 
         // Clear input boxes
@@ -108,7 +109,6 @@ class Form extends Component {
         axios.post(`${BASE_URL}/api/product`, this.state).then(() => {
 
             this.clearInput();
-            this.props.getData();
 
         })
 
@@ -150,9 +150,10 @@ class Form extends Component {
 
         return (
 
-            <div className="Form">
-
-                {img}
+            <div className="flex-container form">
+                <div>
+                    {img}
+                </div>
 
                 <div className="InputBoxes">
                     <input ref="image_url" placeholder="Image URL" onChange={(event) => { this.updateInputState(event, "Image URL") }} />

@@ -18,7 +18,7 @@ var deleteProduct = (id, getCallback) => {
 var Product = (props) => {
     return (
 
-        <div className="Product" >
+        <div className="flex-container product" >
 
             {props.details.product_name}
             <img src={props.details.image_url} alt={props.details.descript} />

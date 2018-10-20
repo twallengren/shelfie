@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 var Header = (props) => {
     return (
 
-        <div className="Header" >
+        <div className="flex-container header" >
 
             <Link to="/">
                 <div className='links'>Dashboard</div>

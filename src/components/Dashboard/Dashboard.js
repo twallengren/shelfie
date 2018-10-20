@@ -45,7 +45,7 @@ class Dashboard extends Component {
 
         return (
 
-            <div className="Dashboard">
+            <div className="flex-container dashboard">
 
                 {product_dash}
 
